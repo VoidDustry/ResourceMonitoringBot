@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "discord.js": "^13.10.2",
+    "node-os-utils": "^1.3.7"
+  },
+  "name": "tomoko-server",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomoko",
+  "license": "ISC",
+  "description": ""
+}
