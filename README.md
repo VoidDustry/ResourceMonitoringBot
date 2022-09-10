@@ -1,4 +1,4 @@
-# Simple-Recourses-Monitoring-Bot
+#  ResourcesMonitoringBot
 Simple resources monitoring discord bot for linux server
 
 # How to use:
