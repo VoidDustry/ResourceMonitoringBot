@@ -33,5 +33,5 @@ const update = async() => {
     const usedMem = Math.floor(totalMem - freeMem);
     const cpuPercentage = Math.floor(await cpu.usage());
 
-    client.user.setPresence({ activities: [{ name: `RAM: ${usedMem}Mb/${totalMem}Mb, CPU:$ {cpuPercentage}%`, type: ActivityType.Streaming, url: "https://www.twitch.tv/tomoko_4" }], status: 'idle' });
+    client.user.setPresence({ activities: [{ name: `RAM: ${usedMem}Mb/${totalMem}Mb, CPU:${cpuPercentage}%`, type: ActivityType.Streaming, url: "https://www.twitch.tv/tomoko_4" }], status: 'idle' });
 }
