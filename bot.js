@@ -1,9 +1,10 @@
-const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
-const client = new Client({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]});
+const { Client, GatewayIntentBits, ActivityType, Events } = require('discord.js');
+const client = new Client({ intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ] });
+require('dotenv').config();
 
 client.login(process.env.DISCORD_TOKEN);
 
-const { cpu } = require('node-os-utils');      
+const { cpu } = require('node-os-utils');
 const os = require('os');
 
 const commands = {
@@ -16,9 +17,11 @@ client.on('ready', () => {
     setInterval(update, 1000);
 });
 
-client.on('messageCreate', message => {
+client.on(Events.MessageCreate, message => {
     const text = message.content;
-    if (text.match(commands.trigger)) message.channel.send("`Host is up.`");
+    if (text.match(commands.trigger))
+        message.channel.send("`Host is up.`");
+
     if (text.match(commands.ping)) {
         message.channel.send("Pinging...").then(msg => {
             const ping = msg.createdTimestamp - message.createdTimestamp;
@@ -27,11 +30,16 @@ client.on('messageCreate', message => {
     }
 });
 
-const update = async() => {
-    const freeMem = Math.floor(os.freemem()/1024/1024);
-    const totalMem = Math.floor(os.totalmem()/1024/1024);
+const update = async () => {
+    const freeMem = Math.floor(os.freemem() / 1024 / 1024);
+    const totalMem = Math.floor(os.totalmem() / 1024 / 1024);
     const usedMem = Math.floor(totalMem - freeMem);
     const cpuPercentage = Math.floor(await cpu.usage());
 
-    client.user.setPresence({ activities: [{ name: `RAM: ${usedMem}Mb/${totalMem}Mb, CPU:${cpuPercentage}%`, type: ActivityType.Streaming, url: "https://www.twitch.tv/tomoko_4" }], status: 'idle' });
+    client.user.setPresence({
+        activities: [ {
+            name: `RAM: ${usedMem}MB/${totalMem}MB, CPU: ${cpuPercentage}%`,
+            type: ActivityType.Watching
+        } ], status: 'idle'
+    });
 }
